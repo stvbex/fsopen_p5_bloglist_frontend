@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-const BlogForm = props => {
+const BlogForm = ({ handleCreateBlog }) => {
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
     const [url, setUrl] = useState('')
@@ -15,7 +15,7 @@ const BlogForm = props => {
             url
         }
 
-        await props.handleCreateBlog(newBlogData)
+        await handleCreateBlog(newBlogData)
 
         setTitle('')
         setAuthor('')
@@ -29,6 +29,7 @@ const BlogForm = props => {
                 <div>
                     title:
                     <input
+                        id="titleInput"
                         type="text"
                         value={title}
                         onChange={event => setTitle(event.target.value)}
@@ -37,6 +38,7 @@ const BlogForm = props => {
                 <div>
                     author:
                     <input
+                        id="authorInput"
                         type="text"
                         value={author}
                         onChange={event => setAuthor(event.target.value)}
@@ -45,6 +47,7 @@ const BlogForm = props => {
                 <div>
                     url:
                     <input
+                        id="urlInput"
                         type="text"
                         value={url}
                         onChange={event => setUrl(event.target.value)}
