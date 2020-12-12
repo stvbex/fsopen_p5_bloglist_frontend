@@ -37,23 +37,23 @@ const Blog = ({ blog, handleUpdateBlog, handleRemoveBlog, currentUser }) => {
     }
 
     return (
-        <div style={blogStyle}>
+        <div className='blog' style={blogStyle}>
             <div>
                 {blog.title} {blog.author}
                 {detailsVisible
-                    ? <input type='button' value='hide' onClick={toggleVisibility} />
-                    : <input type='button' value='view' onClick={toggleVisibility} />
+                    ? <input id='hideButton' type='button' value='hide' onClick={toggleVisibility} />
+                    : <input id='viewButton' type='button' value='view' onClick={toggleVisibility} />
                 }
 
             </div>
             {detailsVisible &&
                 <div>
                     {blog.url} <br />
-          likes {blog.likes}
-                    <input type='button' value='like' onClick={handleLike} /> <br />
+                    likes {blog.likes}
+                    <input id='likeButton' type='button' value='like' onClick={handleLike} /> <br />
                     {blog.user.name} <br />
                     {currentUser.username === blog.user.username
-                        ? <input type='button' value='remove' onClick={handleRemove} />
+                        ? <input id='removeButton' type='button' value='remove' onClick={handleRemove} />
                         : null
                     }
                 </div>

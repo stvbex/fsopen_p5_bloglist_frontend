@@ -6,7 +6,8 @@ const LoginForm = props => (
         <div>
             username
             <input
-                type="text"
+                id='username-input'
+                type='text'
                 value={props.username}
                 onChange={event => props.setUsername(event.target.value)}
             />
@@ -14,12 +15,13 @@ const LoginForm = props => (
         <div>
             password
             <input
-                type="test"
+                id='password-input'
+                type='password'
                 value={props.password}
                 onChange={event => props.setPassword(event.target.value)}
             />
         </div>
-        <input type="submit" value="login" />
+        <input id='login-button' type='submit' value='login' />
     </form>
 )
 

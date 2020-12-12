@@ -3,14 +3,18 @@ import Blog from './components/Blog'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import Togglable from './components/Togglable'
+import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import './App.css'
 
 const App = () => {
     const [blogs, setBlogs] = useState([])
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [user, setUser] = useState(null)
+    const [notificationMessage, setNotificationMessage] = useState(null)
+    const [notificationColor, setNotificationColor] = useState('red')
 
     useEffect(() => {
         const fetchBlogs = async () => {
@@ -51,7 +55,11 @@ const App = () => {
             setPassword('')
         }
         catch (error) {
-            console.log('invalid username or password')
+            setNotificationColor('red')
+            setNotificationMessage('invalid username or password')
+            setTimeout(() => {
+                setNotificationMessage(null)
+            }, 5000)
         }
     }
 
@@ -68,9 +76,20 @@ const App = () => {
             setBlogs(blogs.concat(newBlog))
 
             newBlogRef.current.toggleVisibility()
+
+            setNotificationColor('green')
+            setNotificationMessage(
+                `a new blog ${newBlog.title} by ${newBlog.author} added`
+            )
         }
         catch (error) {
-            console.log('invalid data or unauthorized')
+            setNotificationColor('red')
+            setNotificationMessage('invalid data or unauthorized')
+        }
+        finally {
+            setTimeout(() => {
+                setNotificationMessage(null)
+            }, 5000)
         }
     }
 
@@ -100,6 +119,7 @@ const App = () => {
         return (
             <div>
                 <h2>blogs</h2>
+                <Notification message={notificationMessage} color={notificationColor} />
                 <div>
                     {user.name} logged in
                     <button onClick={handleLogout}>logout</button>
@@ -126,13 +146,16 @@ const App = () => {
 
     return (
         <div>
-            <LoginForm
-                handleLogin={handleLogin}
-                username={username}
-                setUsername={setUsername}
-                password={password}
-                setPassword={setPassword}
-            />
+            <Notification message={notificationMessage} color={notificationColor} />
+            <div id='login-div'>
+                <LoginForm
+                    handleLogin={handleLogin}
+                    username={username}
+                    setUsername={setUsername}
+                    password={password}
+                    setPassword={setPassword}
+                />
+            </div>
         </div>
     )
 }
