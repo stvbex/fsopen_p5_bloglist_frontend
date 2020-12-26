@@ -72,7 +72,6 @@ const App = () => {
     const handleCreateBlog = async newBlogData => {
         try {
             const newBlog = await blogService.createOne(newBlogData)
-            newBlog.user = user // TODO? populate instead
             setBlogs(blogs.concat(newBlog))
 
             newBlogRef.current.toggleVisibility()
